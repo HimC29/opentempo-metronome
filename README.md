@@ -10,7 +10,7 @@ This is an early-stage hobby project — the hardware and firmware both work, bu
 
 Working right now:
 - Rotary encoder sets BPM (40–208 range, ±1 per detent)
-- OLED shows current BPM and on/off state
+- OLED shows current BPM and on/off state with a clean centered layout and large fonts
 - Push-button toggles the metronome on/off
 - A single tick sample plays through the I2S amp at the set tempo
 
@@ -18,7 +18,6 @@ Not built yet:
 - Accented beat on beat 1 / time signature support
 - Switchable sound packs (woodblock, click, rimshot, beep)
 - Tap tempo
-- Better UI
 - Schematics (coming soon)
 - Enclosure (will be posted on MakerWorld once it's done)
 
@@ -57,7 +56,7 @@ GPIO 2, 8, and 9 are avoided on purpose since they're boot-strapping pins on the
 
 This is a PlatformIO project.
 
-```
+```bash
 git clone https://github.com/HimC29/opentempo-metronome.git
 cd opentempo-metronome
 pio run --target upload
@@ -65,7 +64,7 @@ pio run --target upload
 
 The board should auto-detect over USB-C. If it doesn't, check the port with `pio device list` and pass it explicitly:
 
-```
+```bash
 pio run --target upload --upload-port /dev/ttyACM0
 ```
 
@@ -85,11 +84,11 @@ The rotary encoder is read with a hand-rolled interrupt-driven quadrature decode
 
 ## Project structure
 
-```
+```text
 opentempo-metronome/
 ├── src/
-│   ├── main.cpp          — firmware
-│   └── tick_data.h       — tick sample as a raw PCM byte array
+│   ├── main.cpp         — firmware
+│   └── tick_data.h      — tick sample as a raw PCM byte array
 ├── platformio.ini
 └── README.md
 ```
@@ -97,6 +96,9 @@ opentempo-metronome/
 ---
 
 ## Changelog
+
+### v0.2.0
+- Upgraded OLED UI with large centered fonts (`logisoso32_tn` for BPM and `logisoso16_tr` for state)
 
 ### v0.1.0
 - Rotary encoder input with BPM clamped to 40–208
