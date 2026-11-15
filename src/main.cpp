@@ -116,12 +116,19 @@ void loop() {
     if (millis() - lastDrawTime >= 50) {
         u8g2.firstPage();
         do {
-            u8g2.setFont(u8g2_font_ncenB10_tr);
-            u8g2.setCursor(0, 20);
-            u8g2.print(bpm);
+            u8g2.setFont(u8g2_font_logisoso32_tn);
+            char bpmStr[4];  // enough for "999" + null terminator
+            sprintf(bpmStr, "%d", bpm);
+            
+            int width = u8g2.getStrWidth(bpmStr);
+            int x = (128 - width) / 2;
+            u8g2.drawStr(x, 64 / 2 + 7, bpmStr);
 
-            u8g2.setCursor(0, 40);
-            u8g2.print(isRunning ? "ON" : "OFF");
+            u8g2.setFont(u8g2_font_logisoso16_tr);
+            const char* statusText = isRunning ? "ON" : "OFF";
+            width = u8g2.getStrWidth(statusText);
+            x = (128 - width) / 2;
+            u8g2.drawStr(x, 64 / 2 + 27, statusText);
         } while ( u8g2.nextPage() );
         lastDrawTime = millis();
     }
